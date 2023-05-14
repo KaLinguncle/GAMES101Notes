@@ -132,7 +132,7 @@ for (input x = 0; x < xmax; ++x)
 
 
 	   ### Evaluating inside ( tri, x, y )
-
+	
 	#### 	How to evaluate a point inside a Triangle ?
 
 ####		Use Cross Products , Cross Product in Graphics:
@@ -163,8 +163,7 @@ for (input x = 0; x < xmax; ++x)
 <center>
     <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p8.png" alt="p8" style="zoom:33%;" />
     <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p9.png" alt="p9" style="zoom:33%;" />
-
-	 ### Compare: The Continuous Triangle Function
+#### 	Compare: The Continuous Triangle Function
 
 <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p10.png" alt="p10" style="zoom:33%;" />
 
