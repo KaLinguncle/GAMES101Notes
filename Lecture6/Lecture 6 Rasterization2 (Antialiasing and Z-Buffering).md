@@ -107,9 +107,19 @@
 
 
 
-
+------
 
 ​			
+
+## Antialiasing
+
+
+
+How can we Reduce Aliasing Error ?
+
+Option 1: Increase sampling rate
+
+- Essentially 
 
 
 
@@ -117,7 +127,9 @@
 
 ​		
 
-​		
+
+
+笔记补充： https://blog.csdn.net/weixin_39903176/article/details/112321441
 
 ​	
 
