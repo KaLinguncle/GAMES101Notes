@@ -148,11 +148,13 @@ for (input x = 0; x < xmax; ++x)
 
 ### Checking All Pixels on the Screen 
 
-#### Use a Bounding Box   (blue area)
+#### Use a Bounding Box    (blue area)
 
 <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p7.png" alt="p7" style="zoom: 33%;" />
 
-​	
+###### 					蓝色的区域称为三角形的包围盒 Bounding Box ，或者称其为轴向包围盒 Axis Aligned Bounding
+
+
 
 ### We Send the Display the Sampled Signal 
 
