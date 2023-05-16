@@ -177,3 +177,6 @@ for (input x = 0; x < xmax; ++x)
 
 ![p11](C:\Users\userData\Desktop\GAMES101\Lecture5\p11.png)
 
+
+
+###### 关于光栅化的额外补充资料：https://zhuanlan.zhihu.com/p/450540827
