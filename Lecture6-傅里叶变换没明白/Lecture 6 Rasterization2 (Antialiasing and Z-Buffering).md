@@ -227,97 +227,122 @@
 
 
 
+### Sampling = Repeating Frequency Contents
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p23.png" alt="p23" style="zoom: 50%;" />
+
+		##### 		在这幅图中，a，b，c 分别是 时域中原始函数图像，冲击函数图像，原始函数乘以冲击函数，就会得到 e 图中的函数，也就是采样的结果。在右侧的频域中，冲击函数的频域依然是冲击函数，不过间隔有所变大，通过 时域的乘积是频域的卷积 可以说，采样就是在重复原始信号的频谱。  
+
+###### 这里对于傅里叶变换与卷积的理解存在问题，以后会补充修改
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p24.png" alt="p24" style="zoom: 33%;" />
+
+##### 		这幅图中展示的分别是 密集采样 与 稀疏采样结果在频域上重复的图片展示，可以看出，在进行稀疏采样时，采样的冲击函数之间的距离较大导致其频谱过小。所以当需要进行重复原始信号时，导致重复信号出现了叠加，导致走样的产生。
+
+
+
+## Antialiasing
+
+### How can we Reduce Aliasing Error ?
+
+#### Option 1: Increase sampling rate
+
+- Essentially increasing the distance between replicas in the Fourier domain 更高的采样频率
+- Higher resolution  displays，sensors， framebuffers
+- But：costly & may need very high resolution
+
+​	
+
+#### Option 2: Antialiasing
+
+- Making Fourier contents "narrower" before repeating
+- i.e. Filtering out high frequencies before sampling
+
+
+
+### Antialiasing = Limiting, then repeating
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p25.png" alt="p25" style="zoom: 50%;" />
+
+			##### 	在上图中，通过低通滤波去除了高频信号。频率图像可以在更低一些的采样率下依然做到不互相重叠，这样就通过先模糊再采样的方法解决了走样问题。
+
+##### 	对于走样问题，增加采样率是最直接的解决方案，在图形图像中可以使用更换分辨率更大的硬件来提高分辨率，越高的分辨率代表了更高的采样率，意味着频谱与频谱之间的间隔足够大，就不容易出现频谱之间的混叠。
+
+​	
+
+
+
+### A Practical Pre-Filter
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p26.png" alt="p26" style="zoom: 50%;" />
+
+	### Antialiasing By Averaging Value in Pixel Area
+
+#### Solution:
+
+- #### Convolve f(x,y) by a 1-pixel box-blur
+
+  - Recall: convolving  = filtering = averaging
+
+- #### Then sample at every pixel‘s center
+
+###### 	先通过对每个像素进行模糊（卷积）再对每个像素中心进行采样
+
+
+
+### Antialiasing By Computing Average Pixel Value
+
+#### 	In rasterizing one triangle, the average value inside a pixel area of f(x,y) = inside(triangle, x, y) is equal to the area of the pixel covered by the triangle.
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p27.png" alt="p27" style="zoom:33%;" />
+
+
+
+### Antialiasing By Supersampling (MSAA)
+
+### Supersampling
+
+#### 	Approximate the effect of the 1-pixel box filter by sampling multiple locations within a pixel and averaging their values:
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p28.png" alt="p28" style="zoom:33%;" />
+
+
+
+### Supersampling : Step 1
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p29.png" alt="p29" style="zoom:33%;" />
+
+
+
+### Supersampling : Step 2
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p30.png" alt="p30" style="zoom:33%;" />
+
+### Supersampling : Result
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p31.png" alt="p31" style="zoom:33%;" />
+
+##### 		MASS 的思想是将一个像素划分为多个小像素，每个小像素有一个中心，可以判断在三角形内的小像素，再将这些小像素平均起来，如果点足够多的情况下可以得出比较好的效果。等同于在一个像素的内部增加采样点，例如在一个像素里，如果采样点不在三角形内，它被覆盖的比例就为0，如果一个采样点在三角形内，那么四个点的覆盖率平均下来就是25%，通过这样的方法实现了反走样的效果。同时引入 MASS 需要增加更多的点来判断是否在三角形内，会付出更多的计算量。
+
+​	
+
+### 关于FXAA 和 TAA
+
+##### 		其他的具有里程碑意义的反走样方法有：FXAA (Fast Approximate AA) 和 TAA (Temporal AA)。FXAA是图像的后期处理方法，先把有锯齿的图得到，再通过一种操作把锯齿消掉。但是如果先得到锯齿的图，再做模糊操作是不对的，FXAA是通过图像匹配的方法找到边界然后替换成没有锯齿的边界，效率非常高。TAA方法是最近几年兴起的方法，它可以寻找上一帧的信息，用像素内的一个点没有做 MSAA来感知，假如我们看到的是静止的场景，相邻两帧看到的信息一样，那么我们可以用不同位置上的点来感知覆盖信息，那么大家会发现在时间范围内，得到的边界会各不相同。TAA是复用上一帧得到的像素的值，相当于将MSAA的样本分布在时间上，这样就没有引入任何额外的操作。
+
+
+
+
+
 笔记补充： https://blog.csdn.net/weixin_39903176/article/details/112321441
 
 图片的傅里叶变换：https://blog.csdn.net/qq_29788741/article/details/126414345
 
 信号卷积：https://www.zhihu.com/question/272008168
 
-​	
+傅里叶变换的通常解释：https://zhuanlan.zhihu.com/p/19763358	
 
 
 
 
-
-## Antialiasing
-
-
-
-How can we Reduce Aliasing Error ?
-
-Option 1: Increase sampling rate
-
-- Essentially 
-
-
-
-​			
-
-​		
-
-
-
-
-
-​	
-
-
-
-
-
-- ### Antialiasing in practice
-
-
-
-## Visibility /occlusion
-
-- ### Z-buffering
-
-
-
-
-
-
-
-#### Sampling Artifacts in Computer Graphics
-
-Artifacts due to sampling - Aliasing
-
-
-
-Behind the Aliasing Artifacts
-
-​	Signals are changing too fast (high frequency) but sampled too slowly
-
-
-
-
-
-### Antialiasing
-
-### Frequency Domain
-
-
-
-Filtering  =  Getting rid of certain frequency Domain
-
-Filtering = Convolution (= Averaging)
-
-Sampling  = Repeating Frequency Contents
-
-Aliasing = Mixed Frequency Contents
-
-
-
-How Can We Reduce Aliasing Error ?
-
-Option 1:  Increase sampling rate
-
-Option 2: Antialiasing    Filtering out high frequencies before sampling
-
-
-
-
-
-### Anitaliasing By Supersampling (MSAA)
 
