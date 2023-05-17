@@ -1,8 +1,14 @@
+
+
+# 傅里叶变换没明白-MSAA的额外资料待补充 最下有链接！！！！
+
+
+
 # Lecture 6: Rasterization 2 (Antialiasing and Z-Buffering)
 
 ## Antialiasing
 
-- 	### Sampling theory
+- 	Sampling theory
 
 ### Sampling is ubiquitous in Computer Graphics
 
@@ -231,7 +237,7 @@
 
 <img src="C:\Users\userData\Desktop\GAMES101\Lecture6\p23.png" alt="p23" style="zoom: 50%;" />
 
-		##### 		在这幅图中，a，b，c 分别是 时域中原始函数图像，冲击函数图像，原始函数乘以冲击函数，就会得到 e 图中的函数，也就是采样的结果。在右侧的频域中，冲击函数的频域依然是冲击函数，不过间隔有所变大，通过 时域的乘积是频域的卷积 可以说，采样就是在重复原始信号的频谱。  
+#####     		在这幅图中，a，b，c 分别是 时域中原始函数图像，冲击函数图像，原始函数乘以冲击函数，就会得到 e 图中的函数，也就是采样的结果。在右侧的频域中，冲击函数的频域依然是冲击函数，不过间隔有所变大，通过 时域的乘积是频域的卷积 可以说，采样就是在重复原始信号的频谱。  
 
 ###### 这里对于傅里叶变换与卷积的理解存在问题，以后会补充修改
 
