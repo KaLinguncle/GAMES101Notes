@@ -60,7 +60,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ##### How to get $R_{y}$ formula ?
 
-![](C:\Users\userData\Desktop\GAMES101\Lecture4\diagram-20230417.png)
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\diagram-20230417.png" alt="diagram-20230417" style="zoom: 67%;" />
 
 #### 使用中文： 已知旋转的坐标 （x',y'）与 (x,y) 相同，则可以推断出
 
@@ -104,7 +104,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ### 3D Rotations
 
-	#### Compose any 3D rotation from $R_{x},R_{y},R_{z}?$
+#### Compose any 3D rotation from $R_{x},R_{y},R_{z}?$
 
 ​	$R_{xyz}(\alpha,\beta,\gamma)=R_{x}(\alpha)R_{y}(\beta)R_{z}(\gamma)$
 
@@ -132,7 +132,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ​		step 1:  考虑只存在垂直轴的特殊情况，原向量在与旋转轴 $\hat{n}$ 垂直的平面内旋转
 
-​					<img src="C:\Users\userData\Desktop\GAMES101\Lecture4\A3A97AAA3D4E61B27B26B35E9D429367.png" style="zoom:25%;" />
+​		<img src="C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\A3A97AAA3D4E61B27B26B35E9D429367.png" alt="A3A97AAA3D4E61B27B26B35E9D429367" style="zoom: 50%;" />
 
 ​					 通过叉乘构造一个新向量 $\hat{n} \times \overrightarrow{v}$   ，由于 $\hat{n}$ 为基向量的原因， 可知$\hat{n} \times \overrightarrow{v}$  的模长与 $\overrightarrow{v}$ 和由 $\overrightarrow{v}$  旋转而					 来的$\overrightarrow{v'}$ 一样
 
@@ -146,7 +146,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ​		step 2: 考虑一般的情况下旋转：
 
-​				<img src="C:\Users\userData\Desktop\GAMES101\Lecture4\2A96EF91D29C50BB6244AC3476A58AE9.png" style="zoom: 25%;" />
+​				<img src="C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\2A96EF91D29C50BB6244AC3476A58AE9.png" alt="2A96EF91D29C50BB6244AC3476A58AE9" style="zoom:33%;" />
 
 ​					 对  $\overrightarrow{v}$  进行分解，分解为与旋转轴 $\hat{n}$ 平行的 $\overrightarrow{v_{||}}$  ，和旋转轴$\hat{n}$ 垂直的 $\overrightarrow{v_{\bot}}$ 
 
@@ -241,9 +241,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
   - Rotates (g x t) To X
   - Difficult to write!
 
-​	<img src="C:\Users\userData\Desktop\GAMES101\Lecture4\p4.png" alt="p4" style="zoom: 33%;"                 />
-
-​	
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p4.png" alt="p4" style="zoom:33%;" />
 
 #### Let's write $M_{view}= R_{view}T_{view}$
 
@@ -279,9 +277,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
   - #### Perspective projection
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture4\p5.png" alt="p5" style="zoom:50%;" />
-
-
+![p5](C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p5.png)
 
 ### Orthographic Projection
 
@@ -299,7 +295,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ###### 	首先将中心移到原点，再将立方体缩放至 [-1 , 1] 的范围内（归一化）。
 
-​	![p6](C:\Users\userData\Desktop\GAMES101\Lecture4\p6.png)
+​	![p6](C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p6.png)
 
 #### 	Transformation matrix
 
@@ -334,7 +330,7 @@ How to do perspective projection
 - First "squish" the frustum (视锥体) into a cuboid (n -> n, f -> f) ($M_{persp} \rightarrow M_{ortho}$)
 - Do orthographic projection ($M_{ortho}$)
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture4\p7.png" alt="p7" style="zoom:50%;" />
+![p7](C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p7.png)
 
 ​	在这一步中，是将这个视锥体转化为一个 [-1, 1] [-1, 1] [-1, 1] 的正方体中（正交投影），可以先把远平面( f )压缩 ，把视锥体压缩成一个长方体，再通过正交投影矩阵就可以变换到正方体中。
 
@@ -344,7 +340,7 @@ How to do perspective projection
 2. 远平面 f 的所有点坐标 z 不变 都是 f
 3. 远平面 f 的中心点坐标值不变 (0, 0, f)
 
-![p8](C:\Users\userData\Desktop\GAMES101\Lecture4\p8.png)
+![p8](C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p8.png)
 
 ##### Find the relationship between transformed points (x', y', z') and the original points (x, y, z)
 
@@ -466,7 +462,7 @@ How to do perspective projection
 
 ####    可知         $n = near \\ f= far$
 
-​	![p9](C:\Users\userData\Desktop\GAMES101\Lecture4\p9.png)
+![p9](C:\Users\userData\Desktop\GAMES101\Lecture4-HW1\p9.png)
 
 ​	由这样一个视锥体截面可以得知
 
