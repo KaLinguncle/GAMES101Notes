@@ -1,4 +1,4 @@
-# Lecture 7: Shading 1 (Illumination, Shading and Graphics Pipeline)
+# Lecture 7: Shading 1 (Illumination, Shading and Graphics Pipeline) + 作业2
 
 ## Visibility / occlusion
 
@@ -147,9 +147,13 @@ for (each triangle T)
 
 <img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p6.png" alt="p6" style="zoom:33%;" />
 
-##### 	光源在右上的方向，光源照亮了所有的茶杯，可以看到茶杯上有一些颜色不同的地方
+##### 			光源在右上的方向，光源照亮了所有的茶杯，可以看到茶杯上有一些颜色不同的地方
 
-##### 	茶杯上有一个 高光（Specular highlights), 高光是由于光线照射到了光滑的表面，其光线反射方向接近镜面反射方向，因此形成了高光。 茶杯表面除了高光外，其余颜色变化并不剧烈的地方，我们称之为漫反射(diffuse reflection) 光源在右上，在茶杯的背面应该看不到这个光源，那么茶杯的背面应该是黑色。但是我们看到 了这个茶杯的背面并不是黑色，也就是说有一些的光从茶杯的背面反射到了我们的眼里，那么 这个点一定是接受到了光。但是这个点接受到的并不是直接光照，而是间接光照。比如说光找 到墙上，墙面发生了一个漫反射将光反射到了桌面上，光再经过桌面的反射就能到茶杯的背面。假如说任何一个点都能够接收到来自四面八方的反射光，这个反射光就是环境关照 (Ambient lighting)，且这个光是一个常量。
+##### 			茶杯上有一个 高光（Specular highlights), 高光是由于光线照射到了光滑的表面，其光线反射方向接近镜面反射方向，因此形成了高光。
+
+##### 			 茶杯表面除了高光外，其余颜色变化并不剧烈的地方，我们称之为漫反射(diffuse reflection)。
+
+##### 			 光源在右上，在茶杯的背面应该看不到这个光源，那么茶杯的背面应该是黑色。但是我们看到 了这个茶杯的背面并不是黑色，也就是说有一些的光从茶杯的背面反射到了我们的眼里，那么这个点一定是接受到了光。但是这个点接受到的并不是直接光照，而是间接光照。比如说光线照射到墙上，墙面发生了一个漫反射将光反射到了桌面上，光再经过桌面的反射就能到茶杯的背面。假如说任何一个点都能够接收到来自四面八方的反射光，这个反射光就是环境关照 (Ambient lighting)，且这个光是一个常量。
 
 ​	
 
@@ -157,113 +161,84 @@ for (each triangle T)
 
 <img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p7.png" alt="p7" style="zoom:33%;" />
 
+###### 							定义多个属性用于判断着色点的光照
 
+
+
+#### No shadows will be generated! （$shading \neq shadow$） 
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p8.png" alt="p8" style="zoom:50%;" />
+
+###### 						  着色的局部性，在考虑一个点的着色时，最多考虑光照与观测方向并不考虑阴影。
+
+###### 						  如图，可知光源在左侧，因此模型应该会产生阴影，但是我们不考虑光线是否被其他
+
+###### 						  物体遮挡，因此不考虑阴影问题，这里着色只能得到物体表面上的光照效果。
+
+​	
+
+### Diffuse Reflection
+
+##### Light is scattered uniformly in all direction
+
+##### 	Surface color is the same for all viewing directions
+
+​									<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p9.png" alt="p9" style="zoom: 67%;" />
+
+
+
+### How mush light (energy) is received?
+
+#### 	Use Lambert's cosine law
+
+​	![p10](C:\Users\userData\Desktop\GAMES101\Lecture7\p10.png)
+
+##### 		假设光是离散的，就可以使用不同的光线去代替，每根光线的能量是一样的，其物体的亮暗程度其实就算接受了多少光照的能量。
+
+##### 		第一幅图可以看出，当光照与物体表面垂直时，可以接收光线的全部能量，因此会非常亮。
+
+##### 		第二幅图中将物体旋转了60°，这时，发现接收的光线少了一半，也就少了一半的能量，会显得更加暗淡。
+
+##### 		那么是不是可以给出一种规律，物体接收的能量或明暗程度由物体表面法线与光线的夹角来决定。要考虑一个着色点能够接收多少能量，需要看这个着色点周围的单位面积 unit area 能接收多少能力，着色点周围的单位面积始终是不变的，那就得考虑法向量与光线之间的夹角。
+
+##### 		在图形学中，一个着色点 shading point 附近的单位面积接收到的光线能量与光线的入射角度有关，这就是 Lambert‘s cosine law。
+
+##### 		定理定义了单位面积接收到光线的能量和光线方向与着色点的角度的 cosine 值成正比，当着色点法线与光线平行时 $cos(\theta)$ 为 1时， 此时单位面积接收到的光线最多，此时是最亮的，而当着色点法线与光线垂直时 $cos(\theta)$ 为 0 时，物体表面就几乎无法接收到光线，也就变的非常暗。
+
+
+
+### Light Falloff 光线衰减
+
+![p11](C:\Users\userData\Desktop\GAMES101\Lecture7\p11.png)
+
+##### 	在图中的理想模型中光在真空中传播，真空中光线传播没有能量损失。我们以球壳的方式标相光向外发射能量的过程，在某一时间点上，光源发射出的所有光线的终点可以形成一个球体。
+
+##### 	在光线的传播过程中没有能量损失，结合能量守恒定律，那么在每个球壳上的能量大小应该是相同的，在靠近光源的小的光线球壳上包含的能量与外圈大球壳上包含的光的能量是相同的。
+
+##### 	在图中，可以看到在半径为1的球壳上的一点的光线强度为 $I$ ，而半径为 $r$ 的球壳上一点的光线强度为 $\frac{I}{r^{2}}$ ,根据能量守恒定律，远近球壳的总能量是相同的，则可以根据公式： 近处光照强度 $I \times$ 近处球壳总面积 $4\pi = $ 远处光照强度 $\times$ 远处球壳面积 $4\pi r^{2}$ 。 所以可以得到光线强度衰减与光源距离的关系为  $\frac{I}{r^{2}}$。 
+
+  	
+
+### Lambertian (Diffuse) Shading
+
+	#### 	Shading independent of view direction
+
+![p12](C:\Users\userData\Desktop\GAMES101\Lecture7\p12.png)
+
+##### 			$max(0, n \cdot l)$ 当中的 $n \cdot l$ 可以帮助我们求出当前shading point接收的能量大小， 通过判断这个点乘结果是否大于0是因为当点乘结果为复数时，我们认为这种情况是有一条光线从物体下面穿过物体到达了物体表面，但我们考虑的是反射，而非折射，所以把值设为0。
+
+
+
+### Produces diffuse appearance
+
+![p13](C:\Users\userData\Desktop\GAMES101\Lecture7\p13.png)
+
+##### 		 shading point之所以会有颜色，只有一个可能性，那就是shading point吸收了一部分能量，也就是吸收了一部分光，反射出没被吸收的光。 如果不同的点有不同的吸收率，那么得到的结果就会是不同的颜色。 
+
+##### 		如果我们定义一个系数$kd$ 来表达能量吸收了多少，如果$kd =1$,则表示这个点完全不吸收，进入的能量 = 出去的能量。如果$kd = 0$,那么表示进入的能量全部被吸收。 $kd$是一个系数，代表的是一个物体本身的颜色，或者是材质。因为不同的材质和光线作用的结果不同，所以还要再乘以这个反射系数 diffuse coefficient。
 
 
 
 笔记补充 https://blog.csdn.net/weixin_43391563/article/details/111313567
-
-
-
-
-
-#### Rasterization  
-
-1. ####  Rasterizing one triangle
-
-2. ####  Sampling theory
-
-3. ####  Antialiasing
-
-
-
-#### Today
-
-##### Visibility / occlusion
-
-- Z - buffer
-
-##### Shading
-
-- Illumination % Shading
-- Graphics Pipeline
-
-
-
-##### Painter's Algorithm
-
-​	Inspired by how painters paint. 
-
-​	Paint from back to front, overwrite in the framebuffer.
-
-​	Requires sorting in depth (O(n log n) for n triangles) Can have unresolvable depth order
-
-
-
-### Z-Buffer  
-
-​	This is the algorithm that eventually won.
-
-​	Idea:
-
-- ​	Store current min. z-value for each sample (pixel)
-- ​	Needs an additional buffer for depth values
-  - frame buffer stores color values
-  - depth buffer (z-buffer) stores depth
-
-IMPORTANT: For simplicity we suppose
-
-​			z is always positive
-
-​			(smaller z -> closer, larger z -> further)
-
-#### Z-Buffer Complexity
-
-​	Complexity
-
-​		O(n) for n triangles (assuming constant coverage)
-
-​		How is it possible to sort n triangles in linear time?
-
-	##### Drawing triangles in different orders?
-
-Most important visibility algorithm
-
-​	Implemented in hardware for all GPUs
-
-
-
-
-
-### Shading ： Definition
-
-​	In this course
-
-​		The process of applying a material to an object.
-
-​	
-
-	#### A Simple Shading Model (Blinn-Phong Reflectance Model)
-
-
-
-#### Diffuse Reflection
-
-​	Light is scattered uniformly in all directions 
-
-​		- Surface color is the same for all view directions
-
-​		Shading independent of view direction
-
-
-
-
-
-
-
-
-
-
-
 
 
