@@ -221,7 +221,7 @@ for (each triangle T)
 
 ### Lambertian (Diffuse) Shading
 
-	#### 	Shading independent of view direction
+#### 	Shading independent of view direction
 
 ![p12](C:\Users\userData\Desktop\GAMES101\Lecture7\p12.png)
 
@@ -240,5 +240,4 @@ for (each triangle T)
 
 
 笔记补充 https://blog.csdn.net/weixin_43391563/article/details/111313567
-
 
