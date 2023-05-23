@@ -1,8 +1,40 @@
-### Lecture 9: Shading 3 (Texture Mapping)
+# Lecture 9: Shading 3 (Texture Mapping)
 
-​	Interpolation Across Triangles: 
+​	
 
-		#### Barycentric coordinate
+### Interpolation Across Triangles: Barycentric Coordinates
+
+### Why do we want to interpolate?
+
+- #### Specify values at vertices
+
+- #### Obtain smoothly varying values across triangles
+
+### What do we want to interpolate?
+
+- #### Texture coordinates, colors, normal vectors, …
+
+### How do we interpolate?
+
+- #### Barycentric coordinates
+
+
+
+
+
+### Barycentric Coordinates
+
+​	A coordinate system for triangles $(\alpha,\beta,\gamma)$
+
+​	
+
+
+
+
+
+Interpolation Across Triangles: 
+
+#### Barycentric coordinate
 
 ​	why do we want to interpolate?
 
@@ -27,7 +59,7 @@
 
 
 	#### Applying Textures
-
+	
 	#### Simple Texture Mapping : Diffuse Color
 
 ​	
