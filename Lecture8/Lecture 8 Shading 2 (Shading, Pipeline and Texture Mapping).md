@@ -1,6 +1,4 @@
-## Lecture 8: Shading 2 (Shading, Pipeline and Texture Mapping)
-
-#### Last Lecture
+## Lecture 8: Shading 2 (Shading, Pipeline and Texture Mapping)    还差部分内容关于Per-Vertex Normal Vectors
 
 
 
