@@ -2,7 +2,7 @@
 
 
 
-#### 重心坐标通常用于得知某个三角形的三个顶点的属性，然后就可以求出三角形你不某一点对应的属性，例如深度缓存时与高洛德着色时，现在以此文介绍如何去推导重心坐标。
+#### 重心坐标通常用于得知某个三角形的三个顶点的属性，然后就可以求出三角形某一点对应的属性，例如深度缓存时与高洛德着色时，现在以此文介绍如何去推导重心坐标。
 
 
 
@@ -96,8 +96,6 @@
 
 
 
-
-
 ### 三角形上的重心坐标
 
 与直线上任意一点满足 P= jA + kB 一样，在三角形ABC所在平面上的任意一点P满足
@@ -116,11 +114,9 @@ P = iA + jB + kC 且 i + j + k = 1
 
 ### 三角形与直线的关系
 
-将三角形ABC的某一个顶点与三角形内任意一点P连线，并连接到该顶点的对边上，交点为D。
+##### 将三角形ABC的某一个顶点与三角形内任意一点P连线，并连接到该顶点的对边上，交点为D。
 
-
-
-那么如上图的情况，点D在AB两点构成的边上，那么可以用直线的重心坐标去表示D点得到$D = xA + yB \ \ x+y=1$， 知道D点坐标后，可以使用CD点去确定点P的坐标了，可得      
+##### 那么如上图的情况，点D在AB两点构成的边上，那么可以用直线的重心坐标去表示D点得到$D = xA + yB \ \ x+y=1$， 知道D点坐标后，可以使用CD点去确定点P的坐标了，可得      
 
 $P = wC + zD \\ P=wC + z(xA +yB)= zxA+ zyb+wC  \\  w+z=1$
 
@@ -156,23 +152,39 @@ $ j(C_{x}-B_{x})(A_{y}- C_{y}) - j(C_{y}-B_{y})(A_{x}- C_{x}) = -(P_{x}-C_{x})(A
 
 同理 i 值也可以用同样的方法求出， k的值可以通过 1 - i - j 得到。
 
-
-
-将P点与三角形的三个顶点分别连线 在三角形的内部得到三个新的三角形：
-
+#### $i= \frac{-(P_{x}-B_{x})(C_{y}-B_{y}) + (P_{y}-B_{y})(C_{x}- B_{x})}{ -(A_{x} -B_{x})(C_{y}- B_{y}) + (A_{y}-B_{y})(C_{x}- B_{x})}$
 
 
 
+#### 将P点与三角形的三个顶点分别连线 在三角形的内部得到三个新的三角形：
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\barycentric pictrue\4.png" alt="4" style="zoom: 67%;" />
+
+
+
+设三角形的总面积为S，三角形PBC的面积为a，三角形PAB的面积为c，三角形的PCA的面积为b，可得：
+
+#### $i = \frac{a}{s} \  \  \ j=\frac{b}{s} \ \ \ k =\frac{c}{s}$
+
+###### 已知： 
+
+#### $i= \frac{-(P_{x}-B_{x})(C_{y}-B_{y}) + (P_{y}-B_{y})(C_{x}- B_{x})}{ -(A_{x} -B_{x})(C_{y}- B_{y}) + (A_{y}-B_{y})(C_{x}- B_{x})}$
+
+可以看出 $P_{x}-B_{x}$的值就是$\overrightarrow{PB}$的x值，记为标记$\overrightarrow{PB}_{x}$ 可得
+
+#### $i= \frac{-\overrightarrow{PB}_{x}\overrightarrow{CB}_{y}+\overrightarrow{PB}_{y}\overrightarrow{CB}_{x}}{-\overrightarrow{AB}_{x}\overrightarrow{CB}_{y}+\overrightarrow{AB}_{y}\overrightarrow{CB}_{x} }$
+
+##### 通过叉乘将上下进行代换
+
+#### $i= \frac{|\overrightarrow{CB}\times\overrightarrow{PB}|}{|\overrightarrow{CB}\times\overrightarrow{AB}|}$
+
+#### 设夹角CBP为$\alpha$ ,那么分子$|\overrightarrow{CB}\times\overrightarrow{PB}|=|\overrightarrow{CB}||\overrightarrow{PB}|sin\alpha = S_{CBP}=\alpha$ 同理分母就是三角形ABC的面积因此 $i = \frac{a}{s}$ 成立。
 
 
 
 
 
-
-
-
-
-https://blog.csdn.net/wangjiangrong/article/details/115326930
+重心坐标的推导与解释： https://blog.csdn.net/wangjiangrong/article/details/115326930
 
 重心坐标（Barycentric coordinates） - 杨超wantnon的文章 - 知乎 https://zhuanlan.zhihu.com/p/58199366
 
