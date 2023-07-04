@@ -64,15 +64,15 @@
 
 
 
-#### for each rasterized screen sample (x, y):       (Usually a pixel's center)
+f`or each rasterized screen sample (x, y):       (Usually a pixel's center)`
 
-#### 		(u, v) = evaluate texture coordinate at (x, y)   (Using barycentric coordinates!)
+`(u, v) = evaluate texture coordinate at (x, y)   (Using barycentric coordinates!)`
 
-#### 		texcolor = texture.sample(u, v);
+`texcolor = texture.sample(u, v);`
 
-#### 		set sample's color to texcolor;
+`set sample's color to texcolor;`
 
-#### 		(usually the diffuse albedo $Kd$ recall the Blinn-Phong reflectance model)
+(usually the diffuse albedo $Kd$ recall the Blinn-Phong reflectance model)
 
 
 
@@ -85,6 +85,60 @@
 ##### 		A pixel on a texture - a texel
 
 ​		<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p6.png" alt="p6" style="zoom:33%;" />
+
+
+
+#### Bilinear Interpolation
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p8.png" alt="p8" style="zoom:33%;" />
+
+###### 								want to sample texture value at red point
+
+
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p9.png" alt="p9" style="zoom:33%;" />
+
+###### 				take 4 nearest sample locations, use these location to interpolation
+
+​							   <img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p10.png" alt="p10" style="zoom:33%;" />
+
+​		
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p11.png" alt="p11" style="zoom:33%;" />
+
+###### 								lerp is Linear interpolation
+
+<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p12.png" alt="p12" style="zoom:33%;" />
+
+###### 							get sample point horizontal coordinate
+
+​							<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p13.png" alt="p13" style="zoom:33%;" />
+
+###### 							use thrice interpolation (horizontal twice, vertical once) get result.
+
+###### 以上流程描述了双线性插值的一个处理流程，现在来对该流程进行分析：
+
+​	单线性插值：
+
+​		
+
+双线性插值： https://blog.csdn.net/qq_58664081/article/details/129079354
+
+​						https://blog.csdn.net/Exception_3212536934/article/details/125141459
+
+## Texture Magnification (hard case) 
+
+#### 	(What if the texture is too large?)
+
+### Point Sampling Textures - Problem
+
+![p7](C:\Users\userData\Desktop\GAMES101\Lecture9\p7.png)
+
+###### 									图中可以看到经过点采样后的的图片在近处出现了锯齿 在远处出现了摩尔纹
+
+
+
+
 
 
 
