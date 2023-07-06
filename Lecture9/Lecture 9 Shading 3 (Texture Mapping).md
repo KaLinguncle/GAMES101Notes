@@ -62,19 +62,17 @@
 
 ### Simple Texture Mapping: Diffuse Color
 
+```  c
+for each rasterized screen sample (x, y):       (Usually a pixel's center)
 
+(u, v) = evaluate texture coordinate at (x, y)   (Using barycentric coordinates!)
 
-f`or each rasterized screen sample (x, y):       (Usually a pixel's center)`
+texcolor = texture.sample(u, v);
 
-`(u, v) = evaluate texture coordinate at (x, y)   (Using barycentric coordinates!)`
+set sample's color to texcolor;
 
-`texcolor = texture.sample(u, v);`
-
-`set sample's color to texcolor;`
-
-(usually the diffuse albedo $Kd$ recall the Blinn-Phong reflectance model)
-
-
+(usually the diffuse albedo $Kd$ recall the Blinn-Phong reflectance model)```
+```
 
 ### Texture Magnification (What if the texture is too small?)
 
@@ -114,17 +112,49 @@ f`or each rasterized screen sample (x, y):       (Usually a pixel's center)`
 
 ​							<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p13.png" alt="p13" style="zoom:33%;" />
 
-###### 							use thrice interpolation (horizontal twice, vertical once) get result.
+###### 													use thrice interpolation (horizontal twice, vertical once) get result.
 
-###### 以上流程描述了双线性插值的一个处理流程，现在来对该流程进行分析：
+###### 		以上流程描述了双线性插值的一个处理流程，可以看出通过这套流程下来，可以得出区域内任意一点的颜色，深度等信息，双线性插值不仅可以向上述流程中以横向进行两次lerp纵向一次lerp，也可以纵向两次lerp，横向一次lerp，可以得到一样的结果。从上述流程看出总共进行了三次插值。
 
-​	单线性插值：
+###### 	单线性插值：
 
-​		
+###### 				已知数据$(x_0, y_0)与(x_1,y_1)$要计算$[x_0, x_1]$区间内某一位置 $x$在直线上的$y$值，因为直线上的函数值是线性变化的，只需要通过计算 $x_0 \ x$两点斜率和$x_0 \ x_1$两点的斜率，令二者相等可以得到方程。
 
-双线性插值： https://blog.csdn.net/qq_58664081/article/details/129079354
+​				
 
-​						https://blog.csdn.net/Exception_3212536934/article/details/125141459
+​																<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p14.png" alt="p14" style="zoom: 50%;" />
+
+###### 				直线的斜率相等，所以可得  
+
+### 												$\frac{y-y_0}{x-x_0}=\frac{y_1-y_0}{x_1-x_0}$
+
+### 										$y =\frac{x_1-x}{x-x_0}y_0 +\frac{x-x_0}{x_1-x_0}y_1$
+
+###### 		双线性插值：
+
+###### 					为什么需要这样的双线性插值流程，首先，图中我们知道了4个顶点的属性，再通过两次插值得到了横	向两点的属性，最后插值得到这两点间的属性，总共进行了三次单线性插值。
+
+​																
+
+​																		<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\p15.png" alt="p15" style="zoom:33%;" />
+
+###### 			在x方向做插值  ($f(Q_{11}) = y1$）：
+
+#### 										$f(R_1) = f(x, y_1) \approx \frac{x_2-x}{x_2-x_1}f(Q_{11})+\frac{x-y_1}{x_2-x_1}f(Q_{21})$
+
+#### 									   $f(R_2) = f(x, y_2) \approx \frac{x_2-x}{x_2-x_1}f(Q_{12})+\frac{x-y_1}{x_2-x_1}f(Q_{22})$
+
+###### 			在y方向做插值 ：
+
+#### 									  $f(x, y) \approx \frac{y_2-y}{y_2-y_1}f(R_{1})+\frac{y-y_1}{y_2-y_1}f(R_{2})$
+
+​			
+
+#### 		Bilinear interpolation usually gives pretty good results at reasonable costs
+
+
+
+
 
 ## Texture Magnification (hard case) 
 
@@ -134,7 +164,7 @@ f`or each rasterized screen sample (x, y):       (Usually a pixel's center)`
 
 ![p7](C:\Users\userData\Desktop\GAMES101\Lecture9\p7.png)
 
-###### 									图中可以看到经过点采样后的的图片在近处出现了锯齿 在远处出现了摩尔纹
+###### 														图中可以看到经过点采样后的的图片在近处出现了锯齿 在远处出现了摩尔纹
 
 
 
