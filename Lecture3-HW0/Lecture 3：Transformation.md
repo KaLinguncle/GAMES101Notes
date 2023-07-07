@@ -113,13 +113,11 @@ $ \overrightarrow{y} =A\overrightarrow{x} + \overrightarrow{b} $    写作  $\be
 
 增加一个维度后，就可以在高维度通过线性变换来完成低维度的仿射变换
 
+<img src="./p1.png" alt="p1" style="zoom: 50%;" />
 
+<img src="./p2.png" alt="p2" style="zoom: 50%;" />
 
-![p1](C:\Users\userData\Desktop\GAMES101\Lecture3\p1.png)
-
-![p2](C:\Users\userData\Desktop\GAMES101\Lecture3\p2.png)
-
-![p3](C:\Users\userData\Desktop\GAMES101\Lecture3\p3.png)
+<img src="./p3.png" alt="p3" style="zoom: 50%;" />
 
 **沿Z轴看向平面，发现正方体的投影正好是完成了平移的仿射变化，最后去掉**$\begin{bmatrix} \overrightarrow{y} \\ 1 \end{bmatrix}$**中的1 回到2维平面，就得到了平移的结果**
 

@@ -22,13 +22,13 @@
 
 ​	
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p1.png" alt="p1" style="zoom:33%;" />
+<img src="./p1.png" alt="p1" style="zoom:33%;" />
 
 #### 	Requires sorting in depth (O(n log n) for n triangles)
 
 #### 	Can have unresolvable depth order
 
-​	<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p2.png" alt="p2" style="zoom:33%;" />
+​	<img src="./p2.png" alt="p2" style="zoom:33%;" />
 
 ###### 		通过画家算法难以判断这三个三角形的深度顺序，三个三角形两两覆盖从而形成了一个环，在深度上存在互相遮挡关系，所以无法定义三角形们的前后顺序。当我们无法使用Painter‘s Algorithm时，引入 Z-Buffer来解决这个问题。
 
@@ -56,7 +56,7 @@
 
 ### Z-Buffer Example
 
-![p3](C:\Users\userData\Desktop\GAMES101\Lecture7\p3.png)
+<img src="./p3.png" alt="p3" />
 
 #####  这幅图的左侧是frame buffer 右侧为 depth buffer。左侧为物体最终渲染的结果，右侧的 depth buffer 存储每个像素点的深度值 z。在Depth /  Z-Buffer 上一个像素的深度值越大，则那个点越白，像素的深度值越小，则点越黑。我们设取色范围为[ 0, 1 ]，color = 0为黑，color = 1 为白,当我们的深度值小，对应的颜色值也就小，因此就接近黑色。当我们的深度值大,对应的颜色值也就大，因此也就接近于白色。
 
@@ -78,7 +78,7 @@ for (each triangle T)
 			; 						// do nothing, this sample is occluded 如果深度值大于之前，则什么都不做。每个采样点展示的就是最靠近屏幕的（最近的）信息，后面的被前面覆盖了 这就是back to front。
 ```
 
-​	<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p4.png" alt="p4" style="zoom:50%;" />
+​	<img src="./p4.png" alt="p4" style="zoom:50%;" />
 
 ###### 可以看出，紫色三角形深度值大于5的部分在重叠时被红色三角形遮盖住了，这样就形成了图像覆盖的层次关系
 
@@ -119,7 +119,7 @@ for (each triangle T)
 
 ### What We've Covered So Far
 
-​		<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p5.png" alt="p5" style="zoom: 50%;" />
+​		<img src="./p5.png" alt="p5" style="zoom: 50%;" />
 
 
 
@@ -145,7 +145,7 @@ for (each triangle T)
 
 ### A Simple Shading Model (Blinn-Phong Reflectance Model)
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p6.png" alt="p6" style="zoom:33%;" />
+<img src="./p6.png" alt="p6" style="zoom:33%;" />
 
 ##### 			光源在右上的方向，光源照亮了所有的茶杯，可以看到茶杯上有一些颜色不同的地方
 
@@ -159,7 +159,7 @@ for (each triangle T)
 
 ### Shading is Local 着色点的光照
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p7.png" alt="p7" style="zoom:33%;" />
+<img src="./p7.png" alt="p7" style="zoom:33%;" />
 
 ###### 							定义多个属性用于判断着色点的光照
 
@@ -183,7 +183,7 @@ for (each triangle T)
 
 ##### 	Surface color is the same for all viewing directions
 
-​									<img src="C:\Users\userData\Desktop\GAMES101\Lecture7\p9.png" alt="p9" style="zoom: 67%;" />
+​									<img src="p9.png" alt="p9" style="zoom: 67%;" />
 
 
 
@@ -191,7 +191,7 @@ for (each triangle T)
 
 #### 	Use Lambert's cosine law
 
-​	![p10](C:\Users\userData\Desktop\GAMES101\Lecture7\p10.png)
+​	<img src="./p10.png" alt="p10" />
 
 ##### 		假设光是离散的，就可以使用不同的光线去代替，每根光线的能量是一样的，其物体的亮暗程度其实就算接受了多少光照的能量。
 
@@ -209,7 +209,7 @@ for (each triangle T)
 
 ### Light Falloff 光线衰减
 
-![p11](C:\Users\userData\Desktop\GAMES101\Lecture7\p11.png)
+<img src="./p11.png" alt="p11" />
 
 ##### 	在图中的理想模型中光在真空中传播，真空中光线传播没有能量损失。我们以球壳的方式标相光向外发射能量的过程，在某一时间点上，光源发射出的所有光线的终点可以形成一个球体。
 
@@ -223,7 +223,7 @@ for (each triangle T)
 
 #### 	Shading independent of view direction
 
-![p12](C:\Users\userData\Desktop\GAMES101\Lecture7\p12.png)
+<img src="./p12.png" alt="p12" />
 
 ##### 			$max(0, n \cdot l)$ 当中的 $n \cdot l$ 可以帮助我们求出当前shading point接收的能量大小， 通过判断这个点乘结果是否大于0是因为当点乘结果为复数时，我们认为这种情况是有一条光线从物体下面穿过物体到达了物体表面，但我们考虑的是反射，而非折射，所以把值设为0。
 
@@ -231,7 +231,7 @@ for (each triangle T)
 
 ### Produces diffuse appearance
 
-![p13](C:\Users\userData\Desktop\GAMES101\Lecture7\p13.png)
+<img src="./p13.png" alt="p13" />
 
 ##### 		 shading point之所以会有颜色，只有一个可能性，那就是shading point吸收了一部分能量，也就是吸收了一部分光，反射出没被吸收的光。 如果不同的点有不同的吸收率，那么得到的结果就会是不同的颜色。 
 

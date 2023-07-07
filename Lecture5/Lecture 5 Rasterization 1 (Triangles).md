@@ -12,13 +12,13 @@
 
   #####  l = -r, b = -t)
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p1.png" alt="p1" style="zoom: 50%;" />
+<img src="./p1.png" alt="p1" style="zoom:50%;" />
 
 #### How to convert form fov Y and aspect to l, r, b, t？ 
 
-![p6](C:\Users\userData\Desktop\GAMES101\Lecture4\p6.png)
+![p2](./p2.png)
 
-![p2](C:\Users\userData\Desktop\GAMES101\Lecture5\p2.png)
+
 
 #### We assume symmetry l = -r b = -t, so frustum width is two r ,frustum hight is two t
 
@@ -63,7 +63,7 @@
 
 ### Canonical Cube to Screen
 
-![p3](C:\Users\userData\Desktop\GAMES101\Lecture5\p3.png)
+<img src="./p3.png" alt="p3" style="zoom:50%;" />
 
 ### Irrelevant to z
 
@@ -75,7 +75,7 @@
 
 #### ( Orthographic cube width and height is 2 )
 
-![p4](C:\Users\userData\Desktop\GAMES101\Lecture5\p4.png)
+<img src="./p4.png" alt="p4" style="zoom:50%;" />
 
 ​			
 
@@ -90,7 +90,7 @@
 
 ### What Pixel Values Approximate a Triangle？
 
-![p5](C:\Users\userData\Desktop\GAMES101\Lecture5\p5.png)
+<img src="./p5.png" alt="p5" style="zoom:50%;" />
 
 
 
@@ -140,7 +140,7 @@ for (input x = 0; x < xmax; ++x)
 - Determine Left / Right 
 - Determine Inside / Outside  (e.g.  a point in the triangle)
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p6.png" alt="p6" style="zoom: 33%;" />
+<img src="./p6.png" alt="p6" style="zoom:33%;" />
 
 #### 		在图中，如果需要判断一个点Q是否在三角形内，可以对 [ 向量P1P2，向量P1Q ] , [ 向量P0P1, 向量 P0Q] , [ 向量P2P0, P2Q ] 三个向量组分别进行叉乘，通过右手螺旋定则判断叉乘得到垂直向量方向。方向(Z轴正负)都相同则代表点Q在三角形内。
 
@@ -150,11 +150,11 @@ for (input x = 0; x < xmax; ++x)
 
 #### Use a Bounding Box    (blue area)
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p7.png" alt="p7" style="zoom: 33%;" />
+
 
 ###### 					蓝色的区域称为三角形的包围盒 Bounding Box ，或者称其为轴向包围盒 Axis Aligned Bounding
 
-
+<img src="./p7.png" alt="p7" style="zoom:33%;" />
 
 ### We Send the Display the Sampled Signal 
 
@@ -163,11 +163,11 @@ for (input x = 0; x < xmax; ++x)
 ### The Display Physically Emits This Signal
 
 <center>
-    <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p8.png" alt="p8" style="zoom:33%;" />
-    <img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p9.png" alt="p9" style="zoom:33%;" />
+    <img src="./p8.png" alt="p8" style="zoom:33%;" />
+    <img src="./p9.png" alt="p9" style="zoom:33%;" />
 #### 	Compare: The Continuous Triangle Function
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture5\p10.png" alt="p10" style="zoom:33%;" />
+<img src="./p10.png" alt="p10" style="zoom:33%;" />
 
 
 
@@ -175,7 +175,7 @@ for (input x = 0; x < xmax; ++x)
 
 #### $\color{red} Aliasing (Jaggies)$
 
-![p11](C:\Users\userData\Desktop\GAMES101\Lecture5\p11.png)
+![p11](./p11.png)
 
 
 

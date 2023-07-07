@@ -136,7 +136,7 @@
 
 - #### Determine forward or backward	
 
-![diagram-20230408](C:\Users\userData\Desktop\GAMES101\Lecture2\diagram-20230408.png)
+![diagram-20230408](./diagram-20230408.png)
 
 ### Cross Product
 
