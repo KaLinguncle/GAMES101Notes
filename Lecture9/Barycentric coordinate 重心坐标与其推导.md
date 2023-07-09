@@ -62,7 +62,7 @@
 
     $|\overrightarrow{AP}| : |\overrightarrow{BP}| = k:(1-k)$
    
-   ![1](C:\Users\userData\Desktop\GAMES101\Lecture9\barycentric pictrue\1.png)
+   <img src="./barycentric pictrue\1.png" alt="1" />
    
    $k \lt 0$
    
@@ -70,7 +70,7 @@
    
    $|\overrightarrow{AP}| : |\overrightarrow{BP}| = -k:(1-k)$
    
-   ![2](C:\Users\userData\Desktop\GAMES101\Lecture9\barycentric pictrue\2.png)
+   <img src="./barycentric pictrue\2.png" alt="2" />
 
 ​	$k \gt 1$
 
@@ -78,7 +78,7 @@
 
 ​	$|\overrightarrow{AP}| : |\overrightarrow{BP}| = -k:(k-1)$
 
-![3](C:\Users\userData\Desktop\GAMES101\Lecture9\barycentric pictrue\3.png)
+<img src="./barycentric pictrue\3.png" alt="3" />
 
 
 
@@ -158,7 +158,7 @@ $ j(C_{x}-B_{x})(A_{y}- C_{y}) - j(C_{y}-B_{y})(A_{x}- C_{x}) = -(P_{x}-C_{x})(A
 
 #### 将P点与三角形的三个顶点分别连线 在三角形的内部得到三个新的三角形：
 
-<img src="C:\Users\userData\Desktop\GAMES101\Lecture9\barycentric pictrue\4.png" alt="4" style="zoom: 67%;" />
+<img src="./barycentric pictrue\4.png" alt="4" style="zoom: 67%;" />
 
 
 
