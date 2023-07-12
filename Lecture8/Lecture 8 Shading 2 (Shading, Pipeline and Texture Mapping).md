@@ -209,9 +209,13 @@
 
 <img src="./p20.png" alt="p20" style="zoom:50%;" />
 
-###### 
+###### 																				具象化展示纹理坐标
 
 
+
+### Textures can be used multiple times!
+
+![p21](./p21.png)
 
 
 
