@@ -18,9 +18,7 @@
 
 - #### Barycentric coordinates
 
-
-
-
+  
 
 ### Barycentric Coordinates
 
@@ -42,7 +40,9 @@
 
 #### 	Barycentric Coordinates: Formulas
 
-​													<img src="C:\Users\userData\AppData\Roaming\Tencent\QQ\Temp\L2[_TA]{@7WR[S8[J%~EF]J.png" alt="L2[_TA]{@7WR[S8[J%~EF]J" style="zoom:25%;" />
+​											<img src="./p37.png" alt="p37" style="zoom:33%;" />	
+
+
 
 #### 	Using Barycentric Coordinates
 
