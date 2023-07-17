@@ -316,15 +316,91 @@ set sample's color to texcolor;
 
 #####       		<img src="./p27.png" alt="p27" style="zoom:50%;" />  
 
-###### 		首先使用双线性插值分别对D层级以及D+1层级的屏幕像素采样点进行求值，计算出该点的纹理贴图颜色值，然后再用一次线性插值求出D + x层的值 （x范围为0 - 1），这样等于在双线性插值的基础上再做了一趟线性插值，所以我们称之为三线性插值。这样就可以使得Mipmap层与层之间的颜色变化是连续的。
+###### 				首先使用双线性插值分别对D层级以及D+1层级的屏幕像素采样点进行求值，计算出该点的纹理贴图颜色值，然后再用一次线性插值求出D + x层的值 （x范围为0 - 1），这样等于在双线性插值的基础上再做了一趟线性插值，所以我们称之为三线性插值。这样就可以使得Mipmap层与层之间的颜色变化是连续的。
+
+###### 		使用三线性插值后，模拟图使用了连续的D值，减少了不连续的过度。
 
 <img src="./p28.png" alt="p28" style="zoom:50%;" />
 
 
 
+### 	Mipmap Limitations  									
 
+###### ![p29](./p29.png)										经过Mipmap三次线性插值采样后的结果，在远处非常模糊，丢失了很多细节
 
+##### 			Mipmap的优点与带来的问题：
 
+###### 			优点是Mipmap建立好后，占用内存固定，且使用时计算量固定。
+
+​									<img src="./p30.png" alt="p30" style="zoom: 33%;" />			
+
+###### 		从图中可以看出，如果采样点所对应的纹理区域是个不规则的长条形或者长宽比较大的区域，就会产生一些问题。
+
+###### 		缺点是各向同性，当同一个pixel在横纵方向覆盖的texel的个数不同时，却对横纵两个方向计算了相同的纹理细节等级。比如横向长度大于纵向，且由此去定了细节等级D，那么纵向就会过度模糊。这个问题可以通过各向异性解决。
+
+​		
+
+### Anisotropic Filtering
+
+##### 	Ripmaps and summed area tables
+
+- Can look up **axis-aligned rectangular zones**
+- Diagonal footprints still a problem
+
+​	
+
+### Summed-Area Table
+
+​		简称SAT，是一种各项异性技术，其思想为：确定该pixel在纹理空间上覆盖texel区域四边形的轴线最小，包围盒(Axis-Aligned Bound Box， AABB)，然后求取该包围盒的纹理值的平均值，作为该pixel的采样纹理值 c
+
+​		如下图所示：
+
+![p31](./p31.jpg)
+
+###### 																公式计算出了蓝色包围盒区域的平均采样值
+
+​		此技术需要事先计算好和texture尺寸相同，但是深度更深的一个数组，其中每个元素保存了当前位置与左下角形成的矩阵区域内所有纹理值的总和，所以此数组称为：Summed-Area Table，在使用时，不经过遍历累加，就可以算出纹理中任意 AABB 的纹理值总和。
+
+​		SAT技术用 AABB 去近似 pixel 覆盖的texel区域，可以预想，当该区域很狭长且沿对角线朝向时，误差会很大，会引起过度模糊。
+
+​							<img src="./p32.jpg" alt="p32" style="zoom:50%;" />
+
+​		总结 SAT 技术的优缺点：
+
+​			   优点：解决了横向和纵向过度模糊与抗锯齿的平衡问题
+
+​			   缺点：SAT 纹理内存占用过高，不能解决对角线方向的过度模糊问题				
+
+### Anisotropic Filtering  (Ripmap)						
+
+​		**各向同性：对不同方向都采用相同的参数。**比如 Mipmap 中统一用长边来确定纹理等级，没有兼顾不同方向的 pixel 对 texel 的覆盖情况，就会导致某一个方向会过度模糊。
+
+​		**各项异性：对不同方向采用了不同的参数。**虽然 SAT 技术对于对角线方向处理不好，但是对于横向和纵向都求取了不同的 AABB，所以可以同时兼顾横纵两个方向。
+
+<center>
+	<img src="./p33.jpg" alt="p33" style="zoom:80%;" />
+	<img src="./p34.png" alt="p34" style="zoom:80%;" />
+</center>
+
+​		而各向异性过滤可以很好地解决各个方向上的过度模糊问题，由于大部分硬件都支持了 Mipmap 的特性，所以很多各向异性过滤技术也是依赖 Mipmap 算法进行改进的。
+
+​	其中一种算法 Texram 是：沿着主方向增加采样点，再平均混合:
+
+![p35](./p35.jpg)
+
+​		上左图的 pixel 覆盖的 texel 四边形如上右图所示：**四边形的短边用于确定 Mipmap 中的纹理等级，以避免过于模糊；四边形的长边确定主方向，长边与短边的比值确定沿主方向添加几个采样点**
+
+​		比如：长边与短边的比值在1~2之间，就用两个采样点，采取和普通 Mipmap 相同的三线性插值后得到两个纹理值，再对两个纹理值平均混合可得到最终此 pixel 的纹理采样值。
+
+​		游戏中的各向异性过滤常见的选项有 x4、x8 和 x16，此选项决定了在主方向最大采样点个数。比如当设置为 x4，但长边与短边的比值为 5 ，那么此时采样点也只能是 4 个。所以这个设置越大效果越好，但越耗性能。
+
+​		以及还有将四边形区域近似为椭圆形，然后设置椭圆形的核函数进行加权混合的方法，称之为Elliptical Weighted Average(EWA)  
+
+​		
+
+#### 对于纹理缩小的情况，下图对比了几种不同采样方式的效果：
+
+<img src="./p36.jpg" alt="p36" style="zoom:150%;" />
 
 
 
@@ -338,72 +414,4 @@ mipmap占用的介绍 https://zhuanlan.zhihu.com/p/36939174
 
 纹理映射补充2：图形学基础 - 纹理 - 纹理映射流程 - 杨鼎超的文章 - 知乎 https://zhuanlan.zhihu.com/p/369977849
 
-### 
 
-
-
-
-
-
-
-Interpolation Across Triangles: 
-
-#### Barycentric coordinate
-
-​	why do we want to interpolate?
-
-​		Specify values at vertices
-
-​		Obtion smoothly varying values across triangles
-
-​	
-
-​	what do web want to interpolate?
-
-​		Texture coordinates, colors, normal vectors,...
-
-
-
-​	How do we interpolate?
-
-​		Barycentric Coordinates
-
-​		<u>However, barycentric coordinates are not invariant under projection!</u>
-
-
-
-	#### Applying Textures
-	
-	#### Simple Texture Mapping : Diffuse Color
-
-​	
-
-
-
-#### Texture Magnification (what if the texture is too small?)
-
- 	Bilinear interpolation
-
-​	
-
-	#### Linear interpolation (1D)
-
-​		lerp(x, v0, v1) = v0 + x(v1 - v0)
-
-
-
-#### Texture Magnification (hard case)(what if the texture is too large?)
-
-​	Point Sampling Textures --- Problem
-
-​	
-
-	##### Mipmap
-
-Allowing(fast, approx, square) range queries
-
-
-
-### Anisotropic Filtering
-
-​		Ripmaps and summed area tables
