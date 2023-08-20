@@ -416,4 +416,3 @@ mipmap占用的介绍 https://zhuanlan.zhihu.com/p/36939174
 
 纹理映射补充2：图形学基础 - 纹理 - 纹理映射流程 - 杨鼎超的文章 - 知乎 https://zhuanlan.zhihu.com/p/369977849
 
-

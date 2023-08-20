@@ -170,7 +170,7 @@ $\overrightarrow{x} \times \overrightarrow{z} = \overrightarrow{-y}$
 
 Cross Product: Cartesian Formula
 
-$\overrightarrow{a} \cdot \overrightarrow{b} =  \begin{pmatrix} y_{a}z_{b}-y_{b}z_{a} \\ z_{a}x_{b} - z_{b}x_{a}\\ x_{a}y_{b}-x_{b}y_{a}\\ \end{pmatrix} $
+$\overrightarrow{a} \cdot \overrightarrow{b} =  \begin{pmatrix} y_{a}z_{b}-y_{b}z_{a} \\ z_{a}x_{b} - z_{b}x_{a}\\ x_{a}y_{b}-x_{b}y_{a}\\ \end{pmatrix} = \begin{pmatrix} 0 &-z_{a}&y_{a}&0 \\ z_{a}&0&-x_{a}&0 \\-y_{a}&x_{a}&0&0\end{pmatrix} \begin{pmatrix} x_{b} \\ y_{b} \\ z_{b}  \end{pmatrix}$
 
 Cross Product in Graphics
 

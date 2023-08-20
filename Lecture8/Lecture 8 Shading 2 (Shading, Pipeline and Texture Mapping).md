@@ -177,6 +177,8 @@
 
 ###### 				
 
+![p22](./p22.jpg)
+
 #### Surfaces are 2D
 
 - ##### Surface lives in 3D world space

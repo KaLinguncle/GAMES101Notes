@@ -168,7 +168,7 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ​			
 
-​					再进一步对 $\overrightarrow{v_{||}}$ 与  $\overrightarrow{v_{\bot}}$  进行替换：  $\overrightarrow{v_{||}}$  代表   $\overrightarrow{v}$  分解得到与旋转轴$\hat{n}$ 平行的部分，即在$\hat{n}$ 上的投影，					所以可以把  $\overrightarrow{v_{||}}$  直接用$\hat{n}$ 和  $\overrightarrow{v}$  的点积表示，即：
+​					再进一步对 $\overrightarrow{v_{||}}$ 与  $\overrightarrow{v_{\bot}}$  进行替换：  $\overrightarrow{v_{||}}$  代表   $\overrightarrow{v}$  分解得到与旋转轴$\hat{n}$ 平行的部分，即在$\hat{n}$ 上的投影，所以可以把  $\overrightarrow{v_{||}}$  直接用$\hat{n}$ 和  $\overrightarrow{v}$  的点积表示，即：
 
 ​					$\overrightarrow{v_{||}}= (\hat{n}\cdot\overrightarrow{v})\hat{n}$
 
@@ -186,9 +186,9 @@ $R_{y}(\alpha) = \begin{pmatrix} cos\alpha &0& -sin\alpha&0 \\ 0&1&0&0 \\-sin\al
 
 ​					最后再将公式矩阵化， $\overrightarrow{v'} = R\overrightarrow{v}$  得出
 
-​					$R(n, \alpha)=cos(\alpha)I +(1-cos(\alpha))nn^{T} + sin(\alpha)\begin{pmatrix} 0 &-n_{z}&n_{y}&0 \\ n_{z}&0&-n_{x}&0 \\-n_{y}&n_{x}&0&0\end{pmatrix}$
+​					$R(n, \alpha)=cos(\alpha)I +(1-cos(\alpha))nn^{T} + sin(\alpha)  \underbrace {\begin{pmatrix} 0 &-n_{z}&n_{y}&0 \\ n_{z}&0&-n_{x}&0 \\-n_{y}&n_{x}&0&0\end{pmatrix} }_{N}$
 
-​					$I$ 是  $\overrightarrow{v}$  的单位向量 $nn^{T}$ 的值是旋转轴的平方 
+​					$I$ 是单位矩阵，     $nn^{T}$ 的值是旋转轴基向量 $\hat{n}$ 的模长， N 是  $\hat{n}$ 叉积的矩阵表示
 
 ​					
 
