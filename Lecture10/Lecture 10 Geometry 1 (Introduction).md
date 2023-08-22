@@ -6,7 +6,7 @@
 
 球面环境贴图：https://zhuanlan.zhihu.com/p/84494845
 
-
+Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geometry 1 （介绍） - marsggbo的文章 - 知乎 https://zhuanlan.zhihu.com/p/147354628
 
 # Applications of Texture
 
@@ -94,19 +94,101 @@
 
 ### Textures can affect shading!
 
-##### 	Texture doesn't have to only represent colors
+#### 	Texture doesn't have to only represent colors
 
-  - ##### What of ot stores the height / normal ?
+  - #### What of ot stores the height / normal ?
 
-  - ##### Bump / normal mapping
+  - #### Bump / normal mapping
 
-		- ##### Fake the detailed geometry
+  - #### Fake the detailed geometry
+
+​										<img src="./p9.png" alt="p9" style="zoom: 67%;" />
+
+### Bump Mapping
+
+#### 	Adding surface detail without adding more triangles
+
+- ##### Perturb ***surface normal*** per pixel  (for shading computations only)
+
+- ##### ***Height shift*** per texel defined by a texture
+
+- ##### How to modify normal vector?
+
+![p10](./p10.png)
+
+### How to perturb the normal (in flatland)
+
+- #### Original surface normal $n(p) = (0, 1)$
+
+  从上图中（黄色曲线线代表法线贴图，黑色曲线代表平面）可知，P点的原始法线方向是垂直于P点向上的。
+
+- #### Derivative at $p$ is $dp = c \times [h(p+1) -h(p)]$
+
+  下图中的蓝色曲线代表法线贴图，那么P点横向移动一个单位后，向上会移动 $dp$ （假设P点会朝着切线方向运动）切线方向即为该点的梯度，则可以由梯度公式得到 $dp$ ，其中 c 是一个常量，切线可以表示为 $(1, dp)$ 。perturb 后的法线方向是切线逆时针旋转 $90^{\circ}$ ，得到的法线向量为 $(-dp，1,)$
+
+- #### Perturbed noraml is then $n(p)=(-dp,1).normalized()$ 
+
+<img src="./p11.png" alt="p11" style="zoom:50%;" />
+
+### How to perturb the normal (in 3D)
+
+- #### Original surface normal  $n(p) = (0, 0, 1)$
+
+- #### Derivatives at p are
+
+  - #### $\frac{dp}{du}= c1*[h(u+1)-h(u)]$
+
+  - #### $\frac{dp}{dv}= c1*[h(v+1)-h(v)]$
+
+- #### Perturbed normal is  $n(p) = (-\frac{dp}{du}, -\frac{dp}{dv}, 1).normalized()$
+
+​	
+
+
+
+### Displacement Mapping  - a more advanced approach
+
+#### 	Uses the same texture as in bumping mapping
+
+#### 	Actually moves the vertices
+
+​											<img src="./p12.png" alt="p12" style="zoom:50%;" />	
+
+​		唯一贴图和法线贴图使用的纹理是一样的，只不过位移贴图不再变换法线方向，而是真实的对每个三角形的顶点做一定的位移。
+
+​		左图是法线贴图，可以看出并没有改变物体形状，轮廓与阴影都是圆形，所以这种方式改变法线造成了视觉上的假象。
+
+​		右图是位移贴图，可以看出轮廓与阴影的凹凸感非常明显，这是真实的对物体的形状进行了改变。
+
+​		上面的对比可以看出位移贴图虽然效果更好，但是由于需要将物体细分为更多的三角形，才能更准确的描述出凹凸特点，但是会增加计算量。
+
+
+
+### 3D Procedural Noise + Solid Modeling
+
+<img src="./p13.png" alt="p13" style="zoom:50%;" />
+
+
+
+### Provide Precomputed Shading
+
+![p14](./p14.png)
 
 
 
 
 
-Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geometry 1 （介绍） - marsggbo的文章 - 知乎 https://zhuanlan.zhihu.com/p/147354628
+### 3D Textures and Volume Rendering
+
+​	     <img src="./p15.png" alt="p15" style="zoom:50%;" />	
+
+
+
+
+
+
+
+
 
 ### Bump Mapping
 
@@ -134,6 +216,12 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 # Introduction to Geometry
 
+
+
+几何： https://www.cnblogs.com/KillerAery/p/14890890.html
+
+
+
 ## 	Example of geometry
 
 ![p1](./p1.png)
@@ -144,29 +232,55 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 
 
-Many Ways to Represent Geometry
+### Many Ways to Represent Geometry
 
-Implicit
+#### Implicit
 
-- algebraic surface
-- level sets
-- distance funcitons
+- ##### algebraic surface
+- ##### level sets
+- ##### distance funcitons
 - ...
 
-Explicit
+#### Explicit
 
-- point cloud
-- polygon mesh
-- subdivsion, NURBS
+- ##### point cloud
+- ##### polygon mesh
+- ##### subdivsion, NURBS
 - ...
 
-Each choice best suited to a different task/type of geometry
+#### Each choice best suited to a different task/type of geometry
+
+
+
+
 
 
 
 ### "Implicit" Representations of Geometry
 
-E.g. sphere: all point in 3D, where  $x^2 + y^2 + z^2 =1$
+#### 		Based on classifying points
+
+#### 			Points satisfy some specified relationship
+
+#### 		E.g. sphere: all point in 3D, where  $x^2 + y^2 + z^2 =1$
+
+#### 		More generally, $f(x,y,z)= 0$
+
+​	<img src="./p16.png" alt="p16" style="zoom: 50%;" />
+
+​	
+
+### 	Implicit Surface — Sampling Can Be Hard
+
+#### 		$f(x,y,z)=(2-\sqrt{x^2+y^2})^2 + z^2 -1$
+
+​		<img src="./p17.png" alt="p17" style="zoom: 50%;" />
+
+
+
+
+
+
 
 
 
