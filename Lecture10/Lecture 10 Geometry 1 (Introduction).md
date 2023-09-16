@@ -74,8 +74,6 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 			1. ###### 根据射线与单位球体的交点坐标 $(x_o,y_o,z_o)$ ，推算出焦点所在的偏航角与俯仰角 $(yaw, pitch)$，然后来映射成在球形贴图对应的 $(u,v)$ 坐标点。
 
-###### 
-
 ### Cube Map
 
 <img src="./p7.png" alt="p7" style="zoom: 33%;" />
@@ -220,7 +218,7 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 几何： https://www.cnblogs.com/KillerAery/p/14890890.html
 
-
+计算机表示物体形状的基本方法、贝塞尔曲线、B样条曲线、NURBS 曲线、Catmull-Rom 样条曲线 - zhiwei的文章 - 知乎 https://zhuanlan.zhihu.com/p/587486358
 
 ## 	Example of geometry
 
@@ -268,25 +266,55 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 ​	<img src="./p16.png" alt="p16" style="zoom: 50%;" />
 
-​	
+​	 	隐式表示指的是通过点之间的某种特殊关系来构建几何体，例如三维空间中球体的表达式 $x^2 + y^2 + z^2 =1$ ，这代表三维空间中一个球体表面上的任意一个点的坐标都满足这个表达式。
+
+​		 更通用的表达式是 $f(x,y,z)= 0$ ，满足这个公式则表示该点在这个隐式定义的物体表面上。
+
+​		 隐式表示也有明显的缺点，只观察公式无法得知对应的物体是什么几何形状。
+
+​		 并且，很难通过表达式计算出  满足 $f(x,y,z)= 0$ 表达式的点坐标，因为这变成了一个方程的求根问题了。
 
 ### 	Implicit Surface — Sampling Can Be Hard
+
+​		
 
 #### 		$f(x,y,z)=(2-\sqrt{x^2+y^2})^2 + z^2 -1$
 
 ​		<img src="./p17.png" alt="p17" style="zoom: 50%;" />
 
+​	
+
+### Implicit Surface — Inside/Outside Tests Easy
+
+​			  使用隐式表示可以很方便的判断一个点是否在物体的内部还是物体的外部，根据隐式表达式，当  $f(x,y,z) \lt 0$ 时，这个点就在几何体的内部。当 $f(x,y,z) \gt 0$ 时，这个点就在几何体的外部。
+
+<img src="./p18.png" alt="p18" style="zoom:50%;" />
 
 
 
-
-
+------
 
 
 
 ### Explicit Representations of Geometry
 
+<img src="./p19.png" alt="p19" style="zoom:50%;" />
 
+​		 显式表示指的是几何体的所有点通过直接或者参数映射的方式给出，这样显式表示的几何体可以直观的看出它的形状。例如上图，是直接将左边uv坐标系中的点通过某种映射关系直接映射到三维坐标系的某个坐标点了，所以可以直观显示。
+
+​		 显式表示与隐式表示相反，由于已经知道了构成几何体表面的点有哪些，可以直观的判断出某个点是否在几何体的表面上。
+
+​		 显式表示也有明显的缺点，如果我们想知道三维空间中某个点的位置是否在几何体内，这其实是进行将三维参数反映射（得出 三维坐标映射为二维坐标的表达式，逆过程）为二维参数的操作，这是非常困难的，当隐式表示则很容易处理这种问题。
+
+### Explicit Surface — Sampling Is Easy
+
+<img src="./p20.png" alt="p20" style="zoom:50%;" />
+
+
+
+### Explicit Surface — Inside/Outside Test Hard
+
+<img src="./p21.png" alt="p21" style="zoom:50%;" />
 
 #### Distance Functions （Implicit）
 
