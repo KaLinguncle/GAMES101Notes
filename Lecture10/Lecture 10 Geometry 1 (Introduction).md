@@ -182,12 +182,6 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 
 
-
-
-
-
-
-
 ### Bump Mapping
 
 	#### Adding surface detail without adding more triangles
@@ -205,8 +199,6 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 ### Provide Precomputed Shading
 
 ### 3D Texture and Volume Rendering
-
-
 
 
 
@@ -250,21 +242,21 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 
 
-
+------
 
 
 
 ### "Implicit" Representations of Geometry
 
-#### 		Based on classifying points
+#### 			Based on classifying points
 
-#### 			Points satisfy some specified relationship
+#### 				Points satisfy some specified relationship
 
-#### 		E.g. sphere: all point in 3D, where  $x^2 + y^2 + z^2 =1$
+#### 			E.g. sphere: all point in 3D, where  $x^2 + y^2 + z^2 =1$
 
-#### 		More generally, $f(x,y,z)= 0$
+#### 			More generally, $f(x,y,z)= 0$
 
-​	<img src="./p16.png" alt="p16" style="zoom: 50%;" />
+​		<img src="./p16.png" alt="p16" style="zoom: 50%;" />
 
 ​	 	隐式表示指的是通过点之间的某种特殊关系来构建几何体，例如三维空间中球体的表达式 $x^2 + y^2 + z^2 =1$ ，这代表三维空间中一个球体表面上的任意一个点的坐标都满足这个表达式。
 
@@ -316,15 +308,61 @@ Bump Mapping：【GAMES101-现代计算机图形学课程笔记】Lecture 10 Geo
 
 <img src="./p21.png" alt="p21" style="zoom:50%;" />
 
-#### Distance Functions （Implicit）
+
+
+### Best Representation Depand on the Task!
+
+
+
+### Alegbraic Surfaces (Implicit)
+
+<img src="./p22.png" alt="p22" style="zoom:50%;" />
+
+
+
+### Constructive Silid Geometry (Implicit)
+
+​	通过布尔运算生成新的几何体，但是不清楚为什么两个隐式几何体为什么可以进行布尔运算。它的数学依据在哪里。
+
+<img src="./p23.png" alt="p23" style="zoom:50%;" />
+
+------
+
+[符号距离函数(SDF)](https://www.zhihu.com/column/c_1431297491883384833) https://zhuanlan.zhihu.com/p/420700051
+
+SDF(signed distance field)基础理论和计算 - gzhao01的文章 - 知乎 https://zhuanlan.zhihu.com/p/536530019
+
+计算机图形学九：隐式曲面(代数形式,CSG, 距离函数,分型几何)与显式曲面 - 孙小磊的文章 - 知乎 https://zhuanlan.zhihu.com/p/144392820
+
+### Distance Functions （Implicit）符号距离函数
+
+​	  通过距离函数也可以得到几何形体混合的效果，为了得到下图中的Blend效果，需要了解 SDF 即 Single Distance Function 符号距离函数（符号的意思指距离可以有正有负）
+
+![p24](./p24.png)
 
 An Example: Blending a moving boundary
 
-### Level Set Methods (Also implicit)
+​		对于符号距离函数来说本质上就是一种定义距离的函数，比如在空间中一点到各个几何物体表面的的距离，对这些距离做各种各样的运算操作最后得到的一个函数就最终的距离函数了。
+
+<img src="./p25.png" alt="p25" style="zoom:50%;" />
+
+​			这样的一个二维平面为例，定义平面中每一个点的SDF为该点到阴影区域右边界的垂直距离，在阴影内部为负，外部为正。图中展示了A和B两种阴影的SDF，有了SDF(A) , SDF(B) 之后对这两个距离函数选择性的做一些运算得到最终的距离函数，这里采用最简单的 SDF = SDF(A)  + SDF(B) 举例，最终得到的 SDF 为 0 的 点集 即为 blend 之后的曲面，对该例来说，就是两道阴影中的一条线。
+
+​			对于上面两个球体的 blend，只需要合理定义空间中的任意一个点的 SDF，再令 SDF 为 0 即可得到混合后的边界，也就可以得到 blend 后的效果了。
 
 
 
-#### Fractals
+
+
+### Level Set Methods (Also implicit) 水平集
+
+​		上面的距离函数需要定义出一个解析表达式，但是有时候我们不一定能够求出这个解析式。那么针对这种情况我们可以用level set（水平集）来表示几何形状。
+
+​		我们看下面的例子来解释什么是level set。其实就是我们给每个格子设定一个值，然后找出值为的地方连起来就得到了level set，连接起来也就形成物体表面。
+
+​	<img src="./p26.png" alt="p26" style="zoom:50%;" />
+
+​		上面例子是在2D平面的levelset，我们也可以在3D上生成level set，这在医学数据上用的比较多。此时的一个大致思路是我们给三维定义出一个密度level set，因为不同器官组织的密度是不一样的，那么我们通过选取不同的levelset，也就得到了不同的器官或组织的表面形状了。<img src="./p27.png" alt="p27" style="zoom:50%;" />
 
 
 
