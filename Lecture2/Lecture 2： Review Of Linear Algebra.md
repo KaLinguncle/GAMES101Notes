@@ -154,6 +154,12 @@ $ \left\|\overrightarrow{a}\right\|\left\|\overrightarrow{b}\right\| = \left\|\o
 
 Cross product Properties   (for $\textcolor{red}{right-hand \ rule}$  constructed coordinate system)
 
+一种比较直观的叉乘右手定则做法是：
+
+​	 a向量叉乘b向量
+
+​	四指指向a，然后握拳方向顺过去四指是b向量方向，大拇指方向为正
+
 $\overrightarrow{x} \times \overrightarrow{y} = \overrightarrow{+z}$                 $\overrightarrow{a} \times \overrightarrow{a} = \overrightarrow{0}      \ parallelogram \ area \ is \ zero$
 
 $\overrightarrow{y} \times \overrightarrow{x} = \overrightarrow{-z}$                $\overrightarrow{a} \times (\overrightarrow{b} + \overrightarrow{c}) = \overrightarrow{a} \times \overrightarrow{b} + \overrightarrow{a} \times \overrightarrow{c}$
