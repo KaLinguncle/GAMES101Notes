@@ -276,66 +276,148 @@
 
 ​							这是一个形如$\mathbf{A}x=c$的等式，所以可以用克拉默法则：
 
-#### 						$t= \frac{\begin{bmatrix} S & E_1&E_2 \end{bmatrix}}{\begin{bmatrix} -D & E_1&E_2 \end{bmatrix}}$
+#### 												$t= \frac{\begin{bmatrix} S & E_1&E_2 \end{bmatrix}}{\begin{bmatrix} -D & E_1&E_2 \end{bmatrix}}$
 
-##### 							 使用向量混合积可以得出分母部分：
+##### 							 							使用向量混合积可以得出分母部分：
 
 ​							$det\begin{bmatrix} -D & E_1&E_2 \end{bmatrix}=-D \cdot(E_1\times E_2)=E_1\cdot(D \times E_2)$		
 
 ​							令 $S_1=D\times E_2 \ 原式等于E_1\cdot E_2$
 
-##### 							分子部分：
+##### 														分子部分：
 
 ​							$det\begin{bmatrix} S & E_1&E_2 \end{bmatrix}=E_2 \cdot(S\times E_1)$		
 
 ​							令 $S_2=S\times E_1 \ 原式等于S_2\cdot E_2$
 
-##### 							所以可得：
+##### 														所以可得：
 
-#### 					   $t= \frac{S_2\cdot E_2}{E_1\cdot E_2}$
+#### 					   						$t= \frac{S_2\cdot E_2}{E_1\cdot E_2}$
 
-###### 							其他的两个参数 $b_1, b_2$ 也可以通过克拉默法则同样求出来。当这三个值$(1-b_1-b_2), b_1 , b_2$都大						于0时，代表交点在三角形中。									
+###### 							其他的两个参数 $b_1, b_2$ 也可以通过克拉默法则同样求出来。当这三个值$(1-b_1-b_2), b_1 , b_2$都非负时，代表交点在三角形中。			
+
+Möller Trumbore算法解释:  https://www.blurredcode.com//2020/04/%E7%9B%B4%E7%BA%BF%E4%B8%8E%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9B%B8%E4%BA%A4moller-trumbore%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC/
+
+------
 
 
 
-Möller Trumbore算法解释: https://www.blurredcode.com//2020/04/%E7%9B%B4%E7%BA%BF%E4%B8%8E%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9B%B8%E4%BA%A4moller-trumbore%E7%AE%97%E6%B3%95%E6%8E%A8%E5%AF%BC/
+### Accelerating Ray-Surface Intersection 快速光线表面求交
+
+
+
+#### Simple ray-scene intersection
+
+- ##### Exhaustively test ray-intersection with every triangle
+
+- ##### Find the closest hit （i.e minimum t）
+
+#### Problem:
+
+- ##### Naive algorithm = #pixels x #triangles ( x #bounces )
+
+- ##### Very slow!
+
+#### For generality, we use the term objects instead of triangles later (but doesn’t necessarily mean entire objects)
+
+<img src="./p21.png" alt="p21" style="zoom:50%;" />
+
+###### 									总体来说光是进行光线与三角形的求交这样一个计算过程就一共要： **像素数量x三角形面数量x弹射次数**这么多次，如下图这样一个场景，一共就有10.7M的三角形面，你可以想象一共要多少次求交运算吗？				
+
+
+
+### Bounding Volumes  包裹体 / 包围盒
+
+#### 	Quick way to avoid intersections: bound complex object with a simple volume 
+
+#### • Object is fully contained in the volume 
+
+#### • If it doesn’t hit the volume, it doesn’t hit the object 
+
+#### • So test BVol first, then test object if it hits
+
+###### 将复杂物体放置于简单形状的包围盒内，如果光线与包围盒相交则再计算光线是否与物体相交。
+
+<img src="./p22.png" alt="p22" style="zoom:50%;" />
+
+### Ray-Intersection With Box<img src="./p23.png" alt="p23" style="zoom:50%;" />
+
+​		包围盒由三对平面相交构成的立方体，包围盒的每一对平面的方向与以物体轴心的坐标轴的x或y或z轴方向相同，所以被称为轴对齐包围盒Axis-Aligned Bounding Box。
+
+
+
+### Ray Intersection with Axis-Aligned Box 光线与轴对齐包围盒相交
+
+<img src="./p24.png" alt="p24" style="zoom: 50%;" />
+
+##### 		
+
+##### 		以二维情况作为例子说明，假设平面空间内存在一个二维的包围盒，上图左1使用光线 $O+tD$ 与包围盒的 $y$ 轴平行的 $x_0, x_1$ 的无限距离平面求交，可以得到光线到达 $x_0$ 的时间 $t_{min}$ ,从 $x_1$ 出去的时间 $t_{max}$ , 同样对 $y_0,y_1$ 两个无限距离平面做同样的运算也可以得到两个 $t$ 值（上图左2）。那么光线在包围盒中就是对 左1 左2 两张图进行求交就得到了 左3 的图，也就是光线进入包围盒和离开包围盒的时间，那么光线在这片空间中的时间自然也就是进出各个面的光线时间求交。
+
+​		
+
+### Ray Intersection with Axis-Aligned Box
+
+- #### Recall: a box (3D) = three pairs of infinitely large slabs
+
+- #### Key ideas
+
+  - ##### The ray enters the box $\textcolor{blue}{only \ when}$ it enters all pairs of slabs 
+
+  - ##### The ray exits the box $\textcolor{red}{as \ long  \ as}$ it exits any pair of slabs 
+
+- #### For each pair, calculate the $t_{min}$ and $t_{max} $ (negative is fine)
+
+- #### For the 3D box, $t_{enter}$ = **max**{$t_{min}$}, $t_{exit}$ = **min**{$t_{max}$}
+
+- #### If $t_{enter}$ < $t_{exit}$, we know the ray $\textcolor{orange}{stays\ a\ while}$ in the box (so they must intersect!) (not done yet, see the next slide)
+
+##### 		注：只有当光线进入了所有平面才算是真正进入了盒子中 这里的 only when 实际上指的是，需要计算光线进入每个轴向的平面的时间 $t_{enter}$ ，而当光线离开了任意平面就是真正的离开了盒子 $t_{exit}$ 。
+
+##### 				对进入盒体平面的时间，离开盒体平面的时间进行求交（与2D方法相同），$t_{enter}$ = **max**{$t_{min}$}, $t_{exit}$ = **min**{$t_{max}$} 就求出了真正的光线进入包围盒交点与离开包围盒交点。
+
+##### 				在什么样的情况下会存在焦点呢？当 $t_{enter}$ < $t_{exit}$ 时，说明光线在包围盒中存在了一段时间，必然存在交点。但是，光线并不是无限距离的直线，而是存在原点的射线。
+
+
+
+#### 	• However, ray is not a line
+
+##### 		- Should check whether t is negative for physical correctness! 
+
+#### 	• What if texit < 0?
+
+##### 		 - The box is “behind” the ray — no intersection! 
+
+#### 	• What if texit >= 0 and tenter < 0?
+
+##### 		 - The ray’s origin is inside the box — have intersection! 
+
+#### 	• In summary, ray and AABB intersect iff
+
+##### 		- tenter < texit && texit >= 0
+
+##### 		因为光线是射线，则需要判断 $t_{enter}$ 和 $t_{exit}$ 为负值的情况，那么当  $t_{enter}<0$ 包围盒的位置在光源之后，不会存在交点。 当  $t_{exit} \ge 0$  $t_{enter} <0$ , 此时光源位置就在包围盒中，不管方向如何，必然与包围盒有交点。 所以，$t_{enter}$ < $t_{exit}$ 且 $t_{exit} \ge 0$ 时，光线与轴对称包围盒存在交点。
+
+​		
+
+Ray-AABB原理解释：图解光线追踪中，轴对齐边界盒（AABB）算法 - miccall的文章：  https://zhuanlan.zhihu.com/p/35321344
+
+AABB（轴对齐矩形边界框）绘制： https://blog.csdn.net/sinat_24229853/article/details/48662799
+
+Ray-AABB代码实现： https://blog.csdn.net/u012325397/article/details/50807880			
+
+​									  https://zhuanlan.zhihu.com/p/610258258
+
+
+
+### Why Axis-Aligned? 为什么会选择轴向对称
+
+<img src="./p25.png" alt="p25" style="zoom:50%;" />
+
+##### 		为什么轴对齐包围盒容易计算，我们前面提到过光线与平面求交的计算，而这是通常情况，平面不一定与物体坐标轴对齐。而如果我们使用轴对齐的特性，如上图的第二幅图中，我们可以直接用水平分量x计算光线与平面相交的时间t，这会简便很多，减少了点积运算只需要进行一次减法和一次除法。
 
 
 
 光线追踪： https://zhuanlan.zhihu.com/p/473901415
-
-
-
-
-
-
-
-### Question 1:
-
-#### 	Ray-Surface Intersection
-
-​		Ray is defined by its origin and direction vector
-
-​		Ray equation:
-
-​			$r(t) =  o +td \quad 0 \le t \le \infin $
-
-​			t is time , o is origin, d is diriction
-
-​		
-
-​		Sphere: $p: (p-c)^{2} -R^{2} = 0$
-
-
-
-​		Solve for intersection:
-
-​				 $(o +td-c)^{2} -R^{2} = 0$
-
-​		
-
-​		
-
-
 
 ###  
